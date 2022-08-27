@@ -1,0 +1,1155 @@
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001         list p=18f452
+                      00002 #include<p18f452.inc>
+                      00001         LIST
+                      00002 ; P18F452.INC  Standard Header File, Version 1.4   Microchip Technology, Inc.
+                      00983         LIST
+                      00003 
+                      00004 
+  0000000A            00005 JJ              equ     0X0A
+  0000000B            00006 KK              equ     0X0B
+  0000000C            00007 aa              equ             0X0C
+  0000000D            00008 jj              equ             0x0D
+  0000000E            00009 kk              equ             0x0E
+                      00010  
+000000                00011         org 0x00
+                      00012 
+000000 EC08 F000      00013                 call                    CONFIGURAR_PUERTOS
+000004 EC0D F000      00014                 call                    BORRAR_BASURA
+000008 EC10 F000      00015                 call                    INICIAR_LCD 
+                      00016 
+                      00017 
+00000C EF54 F000      00018                 goto            testeo
+                      00019 
+                      00020 
+                      00021 
+000010                00022 CONFIGURAR_PUERTOS
+                      00023 
+000010 0EF0           00024                 movlw           B'11110000'
+000012 6E93           00025                 movwf           TRISB
+                      00026 
+000014 6A95           00027                 clrf                    TRISD   
+000016 6A94           00028                 clrf                    TRISC
+                      00029 
+000018 0012           00030                 return
+                      00031 
+                      00032 
+                      00033 
+00001A                00034 BORRAR_BASURA
+                      00035 
+00001A 6A82           00036                 clrf                    PORTC
+00001C 6A83           00037                 clrf                    PORTD
+                      00038                                 
+00001E 0012           00039                                 return
+                      00040                                 
+                      00041         
+000020                00042 INICIAR_LCD
+000020 0E30           00043                                 movlw   b'00110000'
+000022 EC2F F000      00044                                 call    R_I
+                      00045                                 
+000026 0E46           00046                                 movlw           d'70'
+000028 6E0A           00047                                 movwf           JJ
+00002A EC49 F000      00048                                 call                    RETARDO
+                      00049 
+00002E 0E30           00050                                 movlw   b'00110000'
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+000030 EC2F F000      00051                                 call    R_I
+                      00052                                 
+000034 0E2D           00053                                 movlw           d'45'
+000036 6E0A           00054                                 movwf           JJ
+000038 EC49 F000      00055                                 call                    RETARDO
+                      00056 
+00003C 0E30           00057                                 movlw   b'00110000'
+00003E EC2F F000      00058                                 call    R_I
+                      00059                                 
+000042 0E14           00060                                 movlw           d'20'
+000044 6E0A           00061                                 movwf           JJ
+000046 EC49 F000      00062                                 call                    RETARDO
+                      00063 
+00004A 0E38           00064                                 movlw   b'00111000'
+00004C EC2F F000      00065                                 call    R_I
+                      00066                         
+000050 0E0C           00067                                 movlw   b'00001100'
+000052 EC2F F000      00068                                 call    R_I
+                      00069 
+000056 0E01           00070                                 movlw   b'00000001'
+000058 EC2F F000      00071                                 call    R_I
+                      00072 
+00005C 0012           00073                                 return  
+                      00074 
+                      00075 
+00005E                00076 R_I
+                      00077 ; Rutina que ejecuta instrucciones de la LCD
+                      00078 
+00005E 9082           00079                                 bcf             PORTC,0
+000060 9282           00080                                 bcf             PORTC,1
+000062 9482           00081                                 bcf             PORTC,2
+                      00082                         
+000064 6E83           00083                                 movwf   PORTD
+                      00084 
+000066 8482           00085                                 bsf             PORTC,2
+000068 0000           00086                                 nop
+00006A 0000           00087                                 nop
+00006C 9482           00088                                 bcf             PORTC,2
+                      00089                                 
+                      00090         
+00006E 0E0F           00091                                 movlw           d'15'
+000070 6E0A           00092                                 movwf           JJ
+000072 EC49 F000      00093                                 call                    RETARDO
+                      00094 
+000076 0012           00095                                 return                                  
+                      00096 
+                      00097 
+                      00098 
+000078                00099 R_D
+                      00100 ; Rutina que ejecuta instrucciones de la LCD
+                      00101 
+000078 8082           00102                                 bsf             PORTC,0
+00007A 9282           00103                                 bcf             PORTC,1
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00007C 9482           00104                                 bcf             PORTC,2
+                      00105                         
+00007E 6E83           00106                                 movwf   PORTD
+                      00107 
+000080 8482           00108                                 bsf             PORTC,2
+000082 0000           00109                                 nop
+000084 0000           00110                                 nop
+000086 9482           00111                                 bcf             PORTC,2 
+                      00112                                 
+                      00113         
+000088 0E0F           00114                                 movlw           d'15'
+00008A 6E0A           00115                                 movwf           JJ
+00008C EC49 F000      00116                                 call                    RETARDO
+                      00117 
+000090 0012           00118                                 return
+                      00119 
+000092                00120 RETARDO
+                      00121 ; Rutina que sirve para generar retardos
+                      00122                         
+000092 0E64           00123                                 movlw           d'100'
+000094 6E0B           00124                                 movwf           KK
+000096 2E0A           00125                                 decfsz          JJ,F
+000098 EF4F F000      00126                                 goto            LAPSO
+00009C 0012           00127                                 return
+                      00128                 
+00009E                00129 LAPSO
+00009E 2E0B           00130                                 decfsz          KK,F
+0000A0 EF4F F000      00131                                 goto            LAPSO
+0000A4 EF49 F000      00132                                 goto            RETARDO
+                      00133 
+                      00134 
+                      00135 
+                      00136 
+0000A8                00137 testeo          
+                      00138                                                 
+0000A8 8081           00139         BSF                     PORTB,0
+                      00140 
+0000AA B881           00141         btfsc           PORTB,4
+0000AC EF8A F000      00142         goto            d_
+0000B0 BA81           00143         btfsc           PORTB,5
+0000B2 EF97 F000      00144         goto            #
+0000B6 BC81           00145         btfsc           PORTB,6
+0000B8 EFA4 F000      00146         goto            _0
+0000BC BE81           00147         btfsc           PORTB,7
+0000BE EFB1 F000      00148         goto            _ast
+                      00149 
+                      00150 
+0000C2 8281           00151         BSF                     PORTB,1
+                      00152 
+0000C4 B881           00153         btfsc           PORTB,4
+0000C6 EFBE F000      00154         goto            c_
+0000CA BA81           00155         btfsc           PORTB,5
+0000CC EFCB F000      00156         goto            _9
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0000D0 BC81           00157         btfsc           PORTB,6
+0000D2 EFD8 F000      00158         goto            _8
+0000D6 BE81           00159         btfsc           PORTB,7
+0000D8 EFE5 F000      00160         goto            _7
+                      00161 
+                      00162 
+0000DC 8481           00163         BSF                     PORTB,2
+                      00164 
+0000DE B881           00165         btfsc           PORTB,4
+0000E0 EFF2 F000      00166         goto            b_
+0000E4 BA81           00167         btfsc           PORTB,5
+0000E6 EFFF F000      00168         goto            _6
+0000EA BC81           00169         btfsc           PORTB,6
+0000EC EF0C F001      00170         goto            _5
+0000F0 BE81           00171         btfsc           PORTB,7
+0000F2 EF19 F001      00172         goto            _4
+                      00173 
+                      00174 
+0000F6 8681           00175         BSF                     PORTB,3
+                      00176 
+0000F8 B881           00177         btfsc           PORTB,4
+0000FA EF26 F001      00178         goto            a_
+0000FE BA81           00179         btfsc           PORTB,5
+000100 EF33 F001      00180         goto            _3
+000104 BC81           00181         btfsc           PORTB,6
+000106 EF40 F001      00182         goto            _2
+00010A BE81           00183         btfsc           PORTB,7
+00010C EF4D F001      00184         goto            _1
+                      00185 
+000110 EF54 F000      00186         goto    testeo
+                      00187 
+                      00188 
+                      00189 
+                      00190 
+000114                00191 d_                                                                                                      
+000114 0E11           00192         MOVLW            b'00010001'
+000116 6281           00193         cpfseq           PORTB
+000118 EF54 F000      00194         goto            testeo
+                      00195 
+00011C 0E02           00196         movlw           d'2'            
+00011E 6E0D           00197         movwf           jj
+                      00198 
+000120 EC5A F001      00199         CALL            retardo2
+000124 0E44           00200         MOVLW           'D'
+000126 EC3C F000      00201         call                    R_D
+                      00202 
+00012A EF54 F000      00203         GOTO            testeo
+                      00204 
+                      00205 
+00012E                00206 #                                                                                               
+00012E 0E21           00207         MOVLW            b'00100001'
+000130 6281           00208         cpfseq           PORTB
+000132 EF54 F000      00209         goto            testeo
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00210 
+000136 0E03           00211         movlw           d'3'            
+000138 6E0D           00212         movwf           jj
+                      00213 
+00013A EC5A F001      00214         CALL            retardo2
+00013E 0E23           00215         MOVLW           '#'
+000140 EC3C F000      00216         call                    R_D
+                      00217 
+000144 EF54 F000      00218         GOTO            testeo
+                      00219 
+                      00220 
+000148                00221 _0                                                                                              
+000148 0E41           00222         MOVLW            b'01000001'
+00014A 6281           00223         cpfseq           PORTB
+00014C EF54 F000      00224         goto            testeo
+                      00225 
+000150 0E03           00226         movlw           d'3'            
+000152 6E0D           00227         movwf           jj
+                      00228 
+000154 EC5A F001      00229         CALL            retardo2
+000158 0E30           00230         MOVLW           '0'
+00015A EC3C F000      00231         call                    R_D
+                      00232 
+00015E EF54 F000      00233         GOTO            testeo
+                      00234 
+                      00235 
+000162                00236 _ast
+000162 0E81           00237         MOVLW            b'10000001'
+000164 6281           00238         cpfseq           PORTB
+000166 EF54 F000      00239         goto            testeo
+                      00240 
+00016A 0E03           00241         movlw           d'3'           
+00016C 6E0D           00242         movwf           jj
+                      00243 
+00016E EC5A F001      00244         CALL            retardo2
+000172 0E2A           00245         MOVLW           '*'
+000174 EC3C F000      00246         call                    R_D
+                      00247 
+000178 EF54 F000      00248         GOTO            testeo
+                      00249 
+                      00250 
+                      00251 
+                      00252 
+00017C                00253 c_
+00017C 0E12           00254         MOVLW            b'00010010'
+00017E 6281           00255         cpfseq           PORTB
+000180 EF54 F000      00256         goto            testeo
+                      00257 
+000184 0E03           00258         movlw           d'3'            
+000186 6E0D           00259         movwf           jj
+                      00260 
+000188 EC5A F001      00261         CALL            retardo2
+00018C 0E63           00262         MOVLW           'c'
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00018E EC3C F000      00263         call                    R_D
+                      00264 
+000192 EF54 F000      00265         GOTO            testeo
+                      00266 
+000196                00267 _9
+000196 0E22           00268         MOVLW            b'00100010'
+000198 6281           00269         cpfseq           PORTB
+00019A EF54 F000      00270         goto            testeo
+                      00271 
+00019E 0E03           00272         movlw           d'3'           
+0001A0 6E0D           00273         movwf           jj
+                      00274 
+0001A2 EC5A F001      00275         CALL            retardo2
+0001A6 0E39           00276         MOVLW           '9'
+0001A8 EC3C F000      00277         call                    R_D
+                      00278 
+0001AC EF54 F000      00279         GOTO            testeo
+                      00280 
+0001B0                00281 _8
+0001B0 0E42           00282         MOVLW            b'01000010'
+0001B2 6281           00283         cpfseq           PORTB
+0001B4 EF54 F000      00284         goto            testeo
+                      00285 
+0001B8 0E03           00286         movlw           d'3'           
+0001BA 6E0D           00287         movwf           jj
+                      00288 
+0001BC EC5A F001      00289         CALL            retardo2
+0001C0 0E38           00290         MOVLW           '8'
+0001C2 EC3C F000      00291         call                    R_D
+                      00292 
+0001C6 EF54 F000      00293         GOTO            testeo
+                      00294 
+0001CA                00295 _7
+0001CA 0E82           00296         MOVLW            b'10000010'
+0001CC 6281           00297         cpfseq           PORTB
+0001CE EF54 F000      00298         goto            testeo
+                      00299 
+0001D2 0E03           00300         movlw           d'3'           
+0001D4 6E0D           00301         movwf           jj
+                      00302 
+0001D6 EC5A F001      00303         CALL            retardo2
+0001DA 0E37           00304         MOVLW           '7'
+0001DC EC3C F000      00305         call                    R_D
+                      00306 
+0001E0 EF54 F000      00307         GOTO            testeo
+                      00308 
+                      00309 
+                      00310 
+                      00311 
+                      00312 
+0001E4                00313 b_
+0001E4 0E14           00314         MOVLW            b'00010100'
+0001E6 6281           00315         cpfseq           PORTB
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0001E8 EF54 F000      00316         goto            testeo
+                      00317 
+0001EC 0E03           00318         movlw           d'3'           
+0001EE 6E0D           00319         movwf           jj
+                      00320 
+0001F0 EC5A F001      00321         CALL            retardo2
+0001F4 0E42           00322         MOVLW           'B'
+0001F6 EC3C F000      00323         call                    R_D
+                      00324 
+0001FA EF54 F000      00325         GOTO            testeo
+                      00326 
+                      00327 
+0001FE                00328 _6
+0001FE 0E24           00329         MOVLW            b'00100100'
+000200 6281           00330         cpfseq           PORTB
+000202 EF54 F000      00331         goto            testeo
+                      00332 
+000206 0E03           00333         movlw           d'3'           
+000208 6E0D           00334         movwf           jj
+                      00335 
+00020A EC5A F001      00336         CALL            retardo2
+00020E 0E36           00337         MOVLW           '6'
+000210 EC3C F000      00338         call                    R_D
+                      00339 
+000214 EF54 F000      00340         GOTO            testeo
+                      00341 
+000218                00342 _5
+000218 0E44           00343         MOVLW            b'01000100'
+00021A 6281           00344         cpfseq           PORTB
+00021C EF54 F000      00345         goto            testeo
+                      00346 
+000220 0E03           00347         movlw           d'3'           
+000222 6E0D           00348         movwf           jj
+                      00349 
+000224 EC5A F001      00350         CALL            retardo2
+000228 0E35           00351         MOVLW           '5'
+00022A EC3C F000      00352         call                    R_D
+                      00353 
+00022E EF54 F000      00354         GOTO            testeo
+                      00355 
+000232                00356 _4
+000232 0E84           00357         MOVLW            b'10000100'
+000234 6281           00358         cpfseq           PORTB
+000236 EF54 F000      00359         goto            testeo
+                      00360 
+00023A 0E03           00361         movlw           d'3'           
+00023C 6E0D           00362         movwf           jj
+                      00363 
+00023E EC5A F001      00364         CALL            retardo2
+000242 0E34           00365         MOVLW           '4'
+000244 EC3C F000      00366         call                    R_D
+                      00367 
+000248 EF54 F000      00368         GOTO            testeo
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00369 
+                      00370 
+                      00371 
+                      00372 
+                      00373 
+00024C                00374 a_
+00024C 0E18           00375         MOVLW            b'00011000'
+00024E 6281           00376         cpfseq           PORTB
+000250 EF54 F000      00377         goto            testeo
+                      00378 
+000254 0E03           00379         movlw           d'3'           
+000256 6E0D           00380         movwf           jj
+                      00381 
+000258 EC5A F001      00382         CALL            retardo2
+00025C 0E61           00383         MOVLW           'a'
+00025E EC3C F000      00384         call                    R_D
+                      00385 
+000262 EF54 F000      00386         GOTO            testeo
+                      00387 
+000266                00388 _3
+000266 0E28           00389         MOVLW            b'00101000'
+000268 6281           00390         cpfseq           PORTB
+00026A EF54 F000      00391         goto            testeo
+                      00392 
+00026E 0E03           00393         movlw           d'3'           
+000270 6E0D           00394         movwf           jj
+                      00395 
+000272 EC5A F001      00396         CALL            retardo2
+000276 0E33           00397         MOVLW           '3'
+000278 EC3C F000      00398         call                    R_D
+                      00399 
+00027C EF54 F000      00400         GOTO            testeo
+                      00401 
+000280                00402 _2
+000280 0E48           00403         MOVLW            b'01001000'
+000282 6281           00404         cpfseq           PORTB
+000284 EF54 F000      00405         goto            testeo
+                      00406 
+000288 0E03           00407         movlw           d'3'           
+00028A 6E0D           00408         movwf           jj
+                      00409 
+00028C EC5A F001      00410         CALL            retardo2
+000290 0E32           00411         MOVLW           '2'
+000292 EC3C F000      00412         call                    R_D
+                      00413 
+000296 EF54 F000      00414         GOTO            testeo
+                      00415 
+00029A                00416 _1
+00029A 0E88           00417         MOVLW            b'10001000'
+00029C 6281           00418         cpfseq           PORTB
+00029E EF54 F000      00419         goto            testeo
+                      00420 
+0002A2 0E03           00421         movlw           d'3'           
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0002A4 6E0D           00422         movwf           jj
+                      00423 
+0002A6 EC5A F001      00424         CALL            retardo2
+0002AA 0E31           00425         MOVLW           '1'
+0002AC EC3C F000      00426         call                    R_D
+                      00427 
+0002B0 EF54 F000      00428         GOTO            testeo
+                      00429 
+                      00430 
+                      00431 
+                      00432 
+                      00433 
+                      00434 
+                      00435 ; ;;;;;;;;;;; ;;;;;;;;;; ;;;;testeo de  columnas cual se puso en uno
+                      00436 
+                      00437 
+                      00438 
+                      00439 
+0002B4                00440 retardo2                                                ;retardo principál
+                      00441 
+0002B4                00442 PRIM
+0002B4 B881           00443         BTFSC PORTB,4
+0002B6 EF5A F001      00444         GOTO PRIM
+0002BA BA81           00445         BTFSC PORTB,5
+0002BC EF5A F001      00446         GOTO PRIM
+0002C0 BC81           00447         BTFSC PORTB,6
+0002C2 EF5A F001      00448         GOTO PRIM
+0002C6 BE81           00449         BTFSC PORTB,7
+0002C8 EF5A F001      00450         GOTO PRIM
+0002CC 0012           00451         RETURN
+                      00452 
+                      00453 
+                      00454 
+                      00455         end
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+#                                 0000012E
+A                                 00000000
+ACCESS                            00000000
+ACKDT                             00000005
+ACKEN                             00000004
+ACKSTAT                           00000006
+ADCON0                            00000FC2
+ADCON1                            00000FC1
+ADCS0                             00000006
+ADCS1                             00000007
+ADCS2                             00000006
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADIP                              00000006
+ADON                              00000000
+ADRESH                            00000FC4
+ADRESL                            00000FC3
+AN0                               00000000
+AN1                               00000001
+AN2                               00000002
+AN3                               00000003
+AN4                               00000005
+AN5                               00000000
+AN6                               00000001
+AN7                               00000002
+BANKED                            00000001
+BCLIE                             00000003
+BCLIF                             00000003
+BCLIP                             00000003
+BF                                00000000
+BOR                               00000000
+BORRAR_BASURA                     0000001A
+BRGH                              00000002
+BSR                               00000FE0
+C                                 00000000
+CCP1                              00000002
+CCP1CON                           00000FBD
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1IP                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCP2                              00000001
+CCP2A                             00000003
+CCP2CON                           00000FBA
+CCP2IE                            00000000
+CCP2IF                            00000000
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE 11
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+CCP2IP                            00000000
+CCP2M0                            00000000
+CCP2M1                            00000001
+CCP2M2                            00000002
+CCP2M3                            00000003
+CCP2X                             00000005
+CCP2Y                             00000004
+CCPR1H                            00000FBF
+CCPR1L                            00000FBE
+CCPR2H                            00000FBC
+CCPR2L                            00000FBB
+CFGS                              00000006
+CHS0                              00000003
+CHS1                              00000004
+CHS2                              00000005
+CK                                00000006
+CKE                               00000006
+CKP                               00000004
+CLKO                              00000006
+CONFIGURAR_PUERTOS                00000010
+CREN                              00000004
+CS                                00000002
+CSRC                              00000007
+D                                 00000005
+DATA_ADDRESS                      00000005
+DC                                00000001
+DC1B0                             00000004
+DC1B1                             00000005
+DC2B0                             00000004
+DC2B1                             00000005
+DDRA                              TRISA
+DDRB                              TRISB
+DDRC                              TRISC
+DDRD                              TRISD
+DDRE                              TRISE
+DONE                              00000002
+D_A                               00000005
+EEADR                             00000FA9
+EECON1                            00000FA6
+EECON2                            00000FA7
+EEDATA                            00000FA8
+EEIE                              00000004
+EEIF                              00000004
+EEIP                              00000004
+EEPGD                             00000007
+FAST                              00000001
+FERR                              00000002
+FREE                              00000004
+FSR0                              00000000
+FSR0H                             00000FEA
+FSR0L                             00000FE9
+FSR1                              00000001
+FSR1H                             00000FE2
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE 12
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+FSR1L                             00000FE1
+FSR2                              00000002
+FSR2H                             00000FDA
+FSR2L                             00000FD9
+GCEN                              00000007
+GIE                               00000007
+GIEH                              00000007
+GIEL                              00000006
+GO                                00000002
+GO_DONE                           00000002
+I2C_DAT                           00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+IBF                               00000007
+IBOV                              00000005
+INDF0                             00000FEF
+INDF1                             00000FE7
+INDF2                             00000FDF
+INICIAR_LCD                       00000020
+INT0                              00000000
+INT0E                             00000004
+INT0F                             00000001
+INT0IE                            00000004
+INT0IF                            00000001
+INT1                              00000001
+INT1IE                            00000003
+INT1IF                            00000000
+INT1IP                            00000006
+INT2                              00000002
+INT2IE                            00000004
+INT2IF                            00000001
+INT2IP                            00000007
+INTCON                            00000FF2
+INTCON1                           00000FF2
+INTCON2                           00000FF1
+INTCON3                           00000FF0
+INTEDG0                           00000006
+INTEDG1                           00000005
+INTEDG2                           00000004
+IPEN                              00000007
+IPR1                              00000F9F
+IPR2                              00000FA2
+IRVST                             00000005
+JJ                                0000000A
+KK                                0000000B
+LAPSO                             0000009E
+LATA                              00000F89
+LATB                              00000F8A
+LATC                              00000F8B
+LATD                              00000F8C
+LATE                              00000F8D
+LVDCON                            00000FD2
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE 13
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+LVDEN                             00000004
+LVDIE                             00000002
+LVDIF                             00000002
+LVDIN                             00000005
+LVDIP                             00000002
+LVDL0                             00000000
+LVDL1                             00000001
+LVDL2                             00000002
+LVDL3                             00000003
+N                                 00000004
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+NOT_BOR                           00000000
+NOT_DONE                          00000002
+NOT_PD                            00000002
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RC8                           00000006
+NOT_RI                            00000004
+NOT_T1SYNC                        00000002
+NOT_T3SYNC                        00000002
+NOT_TO                            00000003
+NOT_TX8                           00000006
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OBF                               00000006
+OERR                              00000001
+OSC2                              00000006
+OSCCON                            00000FD3
+OV                                00000003
+P                                 00000004
+PCFG0                             00000000
+PCFG1                             00000001
+PCFG2                             00000002
+PCFG3                             00000003
+PCL                               00000FF9
+PCLATH                            00000FFA
+PCLATU                            00000FFB
+PD                                00000002
+PEIE                              00000006
+PEN                               00000002
+PIE1                              00000F9D
+PIE2                              00000FA0
+PIR1                              00000F9E
+PIR2                              00000FA1
+PLUSW0                            00000FEB
+PLUSW1                            00000FE3
+PLUSW2                            00000FDB
+POR                               00000001
+PORTA                             00000F80
+PORTB                             00000F81
+PORTC                             00000F82
+PORTD                             00000F83
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE 14
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+PORTE                             00000F84
+POSTDEC0                          00000FED
+POSTDEC1                          00000FE5
+POSTDEC2                          00000FDD
+POSTINC0                          00000FEE
+POSTINC1                          00000FE6
+POSTINC2                          00000FDE
+PR2                               00000FCB
+PREINC0                           00000FEC
+PREINC1                           00000FE4
+PREINC2                           00000FDC
+PRIM                              000002B4
+PRODH                             00000FF4
+PRODL                             00000FF3
+PSA                               00000003
+PSP0                              00000000
+PSP1                              00000001
+PSP2                              00000002
+PSP3                              00000003
+PSP4                              00000004
+PSP5                              00000005
+PSP6                              00000006
+PSP7                              00000007
+PSPIE                             00000007
+PSPIF                             00000007
+PSPIP                             00000007
+PSPMODE                           00000004
+R                                 00000002
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RA6                               00000006
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RBIP                              00000000
+RBPU                              00000007
+RC0                               00000000
+RC1                               00000001
+RC2                               00000002
+RC3                               00000003
+RC4                               00000004
+RC5                               00000005
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE 15
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RC6                               00000006
+RC7                               00000007
+RC8_9                             00000006
+RC9                               00000006
+RCD8                              00000000
+RCEN                              00000003
+RCIE                              00000005
+RCIF                              00000005
+RCIP                              00000005
+RCON                              00000FD0
+RCREG                             00000FAE
+RCSTA                             00000FAB
+RD                                00000000
+RD0                               00000000
+RD1                               00000001
+RD16                              00000007
+RD2                               00000002
+RD3                               00000003
+RD4                               00000004
+RD5                               00000005
+RD6                               00000006
+RD7                               00000007
+RE0                               00000000
+RE1                               00000001
+RE2                               00000002
+READ_WRITE                        00000002
+RETARDO                           00000092
+RI                                00000004
+RSEN                              00000001
+RX                                00000007
+RX9                               00000006
+RX9D                              00000000
+R_D                               00000078
+R_I                               0000005E
+R_W                               00000002
+S                                 00000003
+SCK                               00000003
+SCL                               00000003
+SCS                               00000000
+SDA                               00000004
+SDI                               00000004
+SDO                               00000005
+SEN                               00000000
+SMP                               00000007
+SPBRG                             00000FAF
+SPEN                              00000007
+SREN                              00000005
+SS                                00000005
+SSPADD                            00000FC8
+SSPBUF                            00000FC9
+SSPCON1                           00000FC6
+SSPCON2                           00000FC5
+SSPEN                             00000005
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE 16
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+SSPIE                             00000003
+SSPIF                             00000003
+SSPIP                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPOV                             00000006
+SSPSTAT                           00000FC7
+STATUS                            00000FD8
+STKFUL                            00000007
+STKPTR                            00000FFC
+STKUNF                            00000006
+SWDTE                             00000000
+SWDTEN                            00000000
+SYNC                              00000004
+T08BIT                            00000006
+T0CKI                             00000004
+T0CON                             00000FD5
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0IP                              00000002
+T0PS0                             00000000
+T0PS1                             00000001
+T0PS2                             00000002
+T0SE                              00000004
+T1CKI                             00000000
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000FCD
+T1INSYNC                          00000002
+T1OSCEN                           00000003
+T1OSI                             00000001
+T1OSO                             00000000
+T1SYNC                            00000002
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000FCA
+T3CCP1                            00000003
+T3CCP2                            00000006
+T3CKPS0                           00000004
+T3CKPS1                           00000005
+T3CON                             00000FB1
+T3INSYNC                          00000002
+T3SYNC                            00000002
+TABLAT                            00000FF5
+TBLPTRH                           00000FF7
+TBLPTRL                           00000FF6
+TBLPTRU                           00000FF8
+TMR0H                             00000FD7
+TMR0IE                            00000005
+TMR0IF                            00000002
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE 17
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TMR0IP                            00000002
+TMR0L                             00000FD6
+TMR0ON                            00000007
+TMR1CS                            00000001
+TMR1H                             00000FCF
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1IP                            00000000
+TMR1L                             00000FCE
+TMR1ON                            00000000
+TMR2                              00000FCC
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2IP                            00000001
+TMR2ON                            00000002
+TMR3CS                            00000001
+TMR3H                             00000FB3
+TMR3IE                            00000001
+TMR3IF                            00000001
+TMR3IP                            00000001
+TMR3L                             00000FB2
+TMR3ON                            00000000
+TO                                00000003
+TOSH                              00000FFE
+TOSL                              00000FFD
+TOSU                              00000FFF
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000F92
+TRISB                             00000F93
+TRISC                             00000F94
+TRISD                             00000F95
+TRISE                             00000F96
+TRISE0                            00000000
+TRISE1                            00000001
+TRISE2                            00000002
+TRMT                              00000001
+TX                                00000006
+TX8_9                             00000006
+TX9                               00000006
+TX9D                              00000000
+TXD8                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXIP                              00000004
+TXREG                             00000FAD
+TXSTA                             00000FAC
+UA                                00000001
+VREFM                             00000002
+VREFP                             00000003
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE 18
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+W                                 00000000
+WCOL                              00000007
+WDTCON                            00000FD1
+WR                                00000001
+WREG                              00000FE8
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_1                                0000029A
+_2                                00000280
+_3                                00000266
+_4                                00000232
+_5                                00000218
+_6                                000001FE
+_7                                000001CA
+_8                                000001B0
+_9                                00000196
+_BORV_20_2L                       000000FF
+_BORV_27_2L                       000000FB
+_BORV_42_2L                       000000F7
+_BORV_45_2L                       000000F3
+_BOR_OFF_2L                       000000FD
+_BOR_ON_2L                        000000FF
+_CCP2MX_OFF_3H                    000000FE
+_CCP2MX_ON_3H                     000000FF
+_CONFIG1H                         00300001
+_CONFIG1L                         00300000
+_CONFIG2H                         00300003
+_CONFIG2L                         00300002
+_CONFIG3H                         00300005
+_CONFIG3L                         00300004
+_CONFIG4H                         00300007
+_CONFIG4L                         00300006
+_CONFIG5H                         00300009
+_CONFIG5L                         00300008
+_CONFIG6H                         0030000B
+_CONFIG6L                         0030000A
+_CONFIG7H                         0030000D
+_CONFIG7L                         0030000C
+_CP0_OFF_5L                       000000FF
+_CP0_ON_5L                        000000FE
+_CP1_OFF_5L                       000000FF
+_CP1_ON_5L                        000000FD
+_CP2_OFF_5L                       000000FF
+_CP2_ON_5L                        000000FB
+_CP3_OFF_5L                       000000FF
+_CP3_ON_5L                        000000F7
+_CPB_OFF_5H                       000000FF
+_CPB_ON_5H                        000000BF
+_CPD_OFF_5H                       000000FF
+_CPD_ON_5H                        0000007F
+_DEBUG_OFF_4L                     000000FF
+_DEBUG_ON_4L                      0000007F
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE 19
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_DEVID1                           003FFFFE
+_DEVID2                           003FFFFF
+_EBTR0_OFF_7L                     000000FF
+_EBTR0_ON_7L                      000000FE
+_EBTR1_OFF_7L                     000000FF
+_EBTR1_ON_7L                      000000FD
+_EBTR2_OFF_7L                     000000FF
+_EBTR2_ON_7L                      000000FB
+_EBTR3_OFF_7L                     000000FF
+_EBTR3_ON_7L                      000000F7
+_EBTRB_OFF_7H                     000000FF
+_EBTRB_ON_7H                      000000BF
+_ECIO_OSC_1H                      000000FD
+_EC_OSC_1H                        000000FC
+_HSPLL_OSC_1H                     000000FE
+_HS_OSC_1H                        000000FA
+_IDLOC0                           00200000
+_IDLOC1                           00200001
+_IDLOC2                           00200002
+_IDLOC3                           00200003
+_IDLOC4                           00200004
+_IDLOC5                           00200005
+_IDLOC6                           00200006
+_IDLOC7                           00200007
+_LP_OSC_1H                        000000F8
+_LVP_OFF_4L                       000000FB
+_LVP_ON_4L                        000000FF
+_OSCS_OFF_1H                      000000FF
+_OSCS_ON_1H                       000000DF
+_PWRT_OFF_2L                      000000FF
+_PWRT_ON_2L                       000000FE
+_RCIO_OSC_1H                      000000FF
+_RC_OSC_1H                        000000FB
+_STVR_OFF_4L                      000000FE
+_STVR_ON_4L                       000000FF
+_WDTPS_128_2H                     000000FF
+_WDTPS_16_2H                      000000F9
+_WDTPS_1_2H                       000000F1
+_WDTPS_2_2H                       000000F3
+_WDTPS_32_2H                      000000FB
+_WDTPS_4_2H                       000000F5
+_WDTPS_64_2H                      000000FD
+_WDTPS_8_2H                       000000F7
+_WDT_OFF_2H                       000000FE
+_WDT_ON_2H                        000000FF
+_WRT0_OFF_6L                      000000FF
+_WRT0_ON_6L                       000000FE
+_WRT1_OFF_6L                      000000FF
+_WRT1_ON_6L                       000000FD
+_WRT2_OFF_6L                      000000FF
+_WRT2_ON_6L                       000000FB
+_WRT3_OFF_6L                      000000FF
+_WRT3_ON_6L                       000000F7
+MPASM  5.35                   LCD_TECLADO.ASM   5-7-2010  16:23:47         PAGE 20
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_WRTB_OFF_6H                      000000FF
+_WRTB_ON_6H                       000000BF
+_WRTC_OFF_6H                      000000FF
+_WRTC_ON_6H                       000000DF
+_WRTD_OFF_6H                      000000FF
+_WRTD_ON_6H                       0000007F
+_XT_OSC_1H                        000000F9
+__18F452                          00000001
+__DEBUG                           1
+_ast                              00000162
+a_                                0000024C
+aa                                0000000C
+b_                                000001E4
+c_                                0000017C
+d_                                00000114
+jj                                0000000D
+kk                                0000000E
+retardo2                          000002B4
+testeo                            000000A8
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+00C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0100 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0140 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0180 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+01C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0200 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0240 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0280 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+02C0 : XXXXXXXXXXXXXX-- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Bytes Used:   718
+Program Memory Bytes Free: 32050
+
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+

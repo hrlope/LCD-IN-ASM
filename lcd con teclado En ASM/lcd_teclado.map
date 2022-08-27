@@ -1,0 +1,82 @@
+MPLINK 4.35, Linker
+Linker Map File - Created Fri May 07 16:23:53 2010
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x0002ce
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x0002cd      
+            718 out of 33048 program addresses used, program memory utilization is 2%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                        #   0x00012e    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+            BORRAR_BASURA   0x00001a    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+       CONFIGURAR_PUERTOS   0x000010    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+              INICIAR_LCD   0x000020    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                    LAPSO   0x00009e    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                     PRIM   0x0002b4    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                  RETARDO   0x000092    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                      R_D   0x000078    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                      R_I   0x00005e    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _0   0x000148    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _1   0x00029a    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _2   0x000280    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _3   0x000266    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _4   0x000232    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _5   0x000218    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _6   0x0001fe    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _7   0x0001ca    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _8   0x0001b0    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _9   0x000196    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                     _ast   0x000162    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       a_   0x00024c    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       b_   0x0001e4    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       c_   0x00017c    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       d_   0x000114    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                 retardo2   0x0002b4    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                   testeo   0x0000a8    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+       CONFIGURAR_PUERTOS   0x000010    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+            BORRAR_BASURA   0x00001a    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+              INICIAR_LCD   0x000020    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                      R_I   0x00005e    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                      R_D   0x000078    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                  RETARDO   0x000092    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                    LAPSO   0x00009e    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                   testeo   0x0000a8    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       d_   0x000114    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                        #   0x00012e    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _0   0x000148    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                     _ast   0x000162    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       c_   0x00017c    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _9   0x000196    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _8   0x0001b0    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _7   0x0001ca    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       b_   0x0001e4    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _6   0x0001fe    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _5   0x000218    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _4   0x000232    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       a_   0x00024c    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _3   0x000266    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _2   0x000280    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                       _1   0x00029a    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                     PRIM   0x0002b4    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+                 retardo2   0x0002b4    program     static C:\MICROSS_II\lcd con teclado\lcd_teclado.asm
+
+
